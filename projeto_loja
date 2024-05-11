@@ -1,0 +1,933 @@
+
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <locale.h>
+#include <math.h>
+#include <initializer_list>
+#include <iostream>
+#include <windows.h>
+#include <conio.h>
+#include <time.h>
+using namespace std;
+int t;
+/*int som(int f)
+{
+	Beep(f, 150);
+	return 0;
+}*/
+int main()
+{
+	setlocale(LC_ALL, "portuguese");
+	struct tm *p;
+	time_t seconds;
+
+	time(&seconds);
+	p = localtime(&seconds);
+	int t;
+
+	int z = 0;
+	int i;
+	string nome[21];
+	string endereco[21];
+	string email[21];
+	string telefone[21];
+	string produto[20];
+	float valorproduto[20]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int qtde_estoque[20];
+	float preco_custo[20];
+	string codigo[20];
+	int x;
+	float valorfinalpedido[20]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	string produtoescolhido[20];
+	float valordoprodutoescolhido[20];
+	int outroped, quantidadeproduto;
+	float valorpedido;
+	int numeroproduto;
+	int numerocad;
+	float diapedido, dataentrega;
+	int mespedido, taxadeentrega;
+	int regiaoentrega;
+	int quantidadeescolhida[20];
+
+	for (t = 0; t < 4; t++)
+	{
+		int menu;
+
+		// som(2200);
+		cout << "   __   __  _______  __    _  __   __ " << endl;
+		cout << "  |  |_|  ||       ||  |  | ||  | |  |" << endl;
+		cout << "  |       ||    ___||   |_| ||  | |  |" << endl;
+		cout << "  |       ||   |___ |       ||  |_|  |" << endl;
+		cout << "  |       ||    ___||  _    ||       |" << endl;
+		cout << "  | ||_|| ||   |___ | | |   ||       |" << endl;
+		cout << "  |_|   |_||_______||_|  |__||_______|\n"
+			 << endl;
+		cout << "digite < 1 > para cadastrar o seu  cliente:\n";
+		cout << "digite < 2 > para cadastrar estoque " << endl;
+		cout << "digite < 3 > para fazer um pedido de compra:\n";
+
+		cin >> menu;
+		if (menu == 1)
+		{
+
+			int x;
+			string r;
+			for (x = 1; x < 21; x++)
+			{
+				// som(900);
+
+				system("cls");
+				cout << "____________________________________\n";
+				cout << "------- CADASTRE SEU CLIENTE ------  \n";
+				cout << "CADASTRO N°: " << x << " digite nome a ser cadastrado: ";
+				getline(cin >> ws, nome[x]);
+				// som(900);
+
+				cout << "CADASTRO N°: " << x << " digite telefone a ser cadastrado: ";
+				getline(cin >> ws, telefone[x]);
+				// som(900);
+
+				cout << "CADASTRO N°: " << x << " digite o email a ser cadastrado: ";
+				getline(cin >> ws, email[x]);
+				// som(900);
+
+				cout << "CADASTRO N°: " << x << " digite o endereço e n° da residência a ser cadastrado: ";
+				getline(cin >> ws, endereco[x]);
+
+				system("cls");
+				// som(2200);
+				cout << "deseja realizar outro cadastro? digite 1 para sim e 3 para nÃ£o: ";
+				cin >> r;
+				if (r == "3")
+					break;
+			}
+			int listacliente;
+			// som(2200);
+			cout << "Deseja abrir a lista de clientes cadastrados? digite 1 P/SIM e 3 P/NÃO:";
+			cin >> listacliente;
+			if (listacliente == 1)
+			{
+				system("cls");
+				// som(900);
+
+				cout << "---- lista de  clientes cadastrados ---------- aberta ---------\n";
+				for (x = 1; x < 21; x++)
+				{
+					if (nome[x] == "")
+						break;
+					cout << "---------------------------------------------------\n";
+					cout << " CADASTRO n°" << x << " nome :" << nome[x] << endl;
+					cout << " CADASTRO n°" << x << " telefone: " << telefone[x] << endl;
+					cout << " CADASTRO n°" << x << " email: " << email[x] << endl;
+					cout << " CADASTRO n°" << x << " endereÃ§o: " << endereco[x] << endl
+						 << endl;
+					cout << "---------------------------------------------------\n";
+				}
+			} // cout<<"=+=+=+=+=+=+=+=+=+=+ LISTA DE CLIENTES CADASTRADOS FECHADA =+=+=+=+=+=+=+=+=+=+\n";
+		}//chave if menu 1
+		if (menu == 2)
+		{
+			cout << "            Aberto seçao cadastro de estoque\n";
+			int i;
+
+			for (i = 1; i < 21; i++)
+			{
+
+				// som(900);
+
+				system("cls");
+				cout << " *--------*  seção de cadastro de estoque  *---------*\n";
+				cout << "______________________________________________________\n";
+				cout << "digite o nome do produto:";
+				getline(cin >> ws, produto[i]);
+				// som(900);
+
+				cout << "digite o n° do código:";
+				cin >> codigo[i];
+				// som(900);
+
+				cout << "digite a quantidade de entrada no estoque";
+				cin >> qtde_estoque[i];
+				// som(900);
+
+				cout << "digite o preço de custo do produto";
+				cin >> preco_custo[i];
+				// som(2200);
+				cout << "deseja fazer outro  cadastro? digite 1 P/ sim e 3 P/ não .";
+				int r;
+				cin >> r;
+				valorproduto[i] = (preco_custo[i] * 50) / 100 + preco_custo[i];
+				if (r == 3)
+					break;
+			}
+			int abe;
+			// som(2200);
+			cout << "abrir estoque? 1 para sim 3 para não";
+			cin >> abe;
+			if (abe == 1)
+			{
+				system("cls");
+				// som(900);
+
+				cout << "                                                        ESTOQUE ABERTO\n";
+				cout << "=== código ===  quantidade no esqtoque === preço de custo ==== valor de revenda ====   descrição do produto ======== \n";
+				for (i = 1; i < 21; i++)
+				{
+					if (codigo[i] == "")
+						break;
+					cout << "      " << codigo[i] << "                 " << qtde_estoque[i] << "                       " << preco_custo[i] << "               " << valorproduto[i] << "                         " << produto[i] << endl;
+				}
+			}
+			else
+			{
+				// som(2200);
+				cout << "=+=+=+=+=+=+=+ ESTOQUE FECHADO =+=+=+=+=+=+=+\n";
+			}
+			int abrecat;
+			// som(2200);
+			cout << "deseja abrir o catalogo de vendas? digite 1 p/ sim e 3 p/ não";
+			cin >> abrecat;
+			if (abrecat == 1)
+			{
+
+				// som(900);
+
+				system("cls");
+				cout << " *********************** CATALOGO DE VENDAS ***************************\n";
+				cout << "\n compras acima de R$ 150,00 O FRETE É GRATIS   -------------------------\n";
+				cout << "-------------------------------          prazo de entrega em até 5 dias \n";
+				cout << "--------- taxa de entrega para curitiba e região metropolitana R$:30,00\n";
+				cout << "taxa de entrega para fora da região metropolitana ou do estado R$:60,00\n\n";
+
+				for (i = 1; i < 21; i++) // FOR FUNCIONA PERFEITO
+				{
+
+					if (produto[i] == "")
+						break;
+					cout << " PRODUTO N°: " << i << "         " << produto[i] << "            R$: " << valorproduto[i] << endl;
+					cout << "-------------------------------------------------------------------\n";
+				}
+				// FOR PERFEITO     -----------------------------------=========
+				cout<< "aqui é dentro chave 2";
+			}
+		} // cahve menu 2 aqui ta o bug dpois do catalogo 
+		cout<< "aqui é fora chave 2";
+		if (menu == 3)
+		{
+            cout<< "aqui é dentro chave 3";
+			// cout<<"bug de for  aqui"<<endl;
+
+			// som(2200);
+			// som(2200);
+			// system("cls");
+			cout << " ESCOLHA UMA REGIÃO PARA CALCULARMOS A TAXA DE  ENTREGA\n\n";
+			cout << "     curitiba ou região metropolitana digite < 1 >\n";
+			cout << "   fora do estado ou região metropolitana digite < 2 >\n";
+			cin >> regiaoentrega;
+			switch (regiaoentrega)
+			{
+			case 1:
+				taxadeentrega = 30;
+				break;
+			case 2:
+				taxadeentrega = 60;
+				break;
+			default:
+				taxadeentrega = 80;
+				break;
+			}
+			// som(2200);
+			cout << "digite o numero correspondente ao dia que o pedido esta sendo feito:";
+			cin >> diapedido;
+			// som(2200);
+			cout << "digite o numero correspondente ao mês que o pedido esta sendo feito:";
+			cin >> mespedido;
+			// som(2200);
+			cout << "digite o numero do cadastro do cliente :";
+			cin >> numerocad;
+			x = numerocad;
+			// cout << "x = " << x << endl;
+			int n, repeat_p; // repete pedido
+
+			system("cls");
+
+			// reabre o catalogo pra pedido -------------------------------------------------------=========
+			//============================== ESSE É O FOR PROBLEMATTICO
+			// som(900);
+
+			// system("cls");
+			cout << " *********************** CATALOGO DE VENDAS ***************************\n";
+			cout << "\n compras acima de R$ 150,00 O FRETE É GRATIS   -------------------------\n";
+			cout << "-------------------------------          prazo de entrega em até 5 dias \n";
+			cout << "--------- taxa de entrega para curitiba e região metropolitana R$:30,00\n";
+			cout << "taxa de entrega para fora da região metropolitana ou do estado R$:60,00\n\n";
+
+			for (i = 1; i < 21; i++)
+			{
+
+				if (produto[i] == "")
+					break;
+				cout << " PRODUTO N°: " << i << "         " << produto[i] << "            R$: " << valorproduto[i] << endl;
+				cout << "-------------------------------------------------------------------\n";
+			}
+			//	======================================== FOR COM PROBLEMA resolvido
+			// fim do catalogo aqui ======================
+			// som(900);
+             // 
+		     cout << "------------------------------------------------------------ CLIENTE : " << nome[x] << " -- telefone: " << telefone[x] << "\n";	
+		     cout << "-------------------------------------------------------   endereço : " << endereco[x] << " -- email : " << email[x] << "\n";
+		     cout << "------------------------------------------------------- DATA DO PEDIDO:" << diapedido << "/" << mespedido << "/2023" << endl;
+
+			for (n = 1; n < 21; n++)
+			{
+				cout << "------------------------------------------------------------------- PEDIDO -- N°" << n << " ------------ ABERTO ----------------\n";
+
+				for (i = 1; i < 21; i++)
+				{
+					// int n ;
+					z++;
+
+					// som(900);
+
+					cout << "digite o numero correspondente ao produto desejado:";
+					cin >> numeroproduto;
+					// som(900);
+
+					cout << "digigite a quantidade do produto desejada:";
+					cin >> quantidadeproduto;
+					// som(900);
+
+					quantidadeescolhida[z] = quantidadeproduto;
+					i = numeroproduto;
+					cout << "                                 ";
+					valorpedido = valorproduto[i] * quantidadeproduto;
+					cout << "                                  ";
+					cout << "valor x quantidade R$: " << valorpedido;
+					valorfinalpedido[0] += valorpedido;
+					cout << "                                               PRODUTO: " << produto[i] << "  VALOR PRODUTO R$:" << valorproduto[i] << endl;
+					cout << "----------------------------------------------------------------------------------------------TOTAL R$:" << valorfinalpedido[0] << endl;
+
+					produtoescolhido[z] = produto[i];
+					valordoprodutoescolhido[z] = valorproduto[i];
+
+					// som(2200);
+					// cout<<"valor de z :"<<z<<endl;
+					// cout<<"valor de i :"<<i<<endl;
+					cout << "\n deseja adicionar algo ao pedido  ? digite 1 P/ SIM  e 3 P/ NÃO:";
+					cin >> outroped;
+					if (outroped == 3)
+						break;
+				}
+				// som(2200);
+				cout << "DESEJA FAZER UM NOVO PEDIDO ? DIGITE 1 P/SIM E 3  P/NÃO:";
+				cin >> repeat_p;
+				if (repeat_p == 3)
+					break;
+			}
+			// som(2200);
+			// som(2200);
+			////som(2200);
+			cout << "-------------------------------------------------------------------------------------+  PEDIDO  ---------- FECHADO +-\n";
+			if (valorfinalpedido[0] >= 150)
+			{
+				taxadeentrega = 0;
+			}
+			cout << "---------------------------------------------------------      taxa de entrega R$:" << taxadeentrega << endl;
+			cout << "                                                                                    TOTAL DO PEDIDO R$:" << valorfinalpedido[0] + taxadeentrega << endl;
+			cout << "------------------------------------------------------------ CLIENTE : " << nome[x] << " -- telefone: " << telefone[x] << "\n";
+			cout << "-------------------------------------------------------   endereço : " << endereco[x] << " -- email : " << email[x] << "\n";
+			//  printf("Dia do ano: %d\n", p->tm_yday);
+			//  printf("Data: %d/%d/%d\n", p->tm_mday, p->tm_mon + 1, p->tm_year + 1900);
+			printf("                                                       Hora do Pedido: %d:%d:%d\n", p->tm_hour, p->tm_min, p->tm_sec);
+			// printf("\nGeral: %s\n", ctime(&seconds));
+			switch (mespedido)
+			{
+			case 1:
+
+				if (diapedido == 31)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/02/2023" << endl;
+					break;
+				}
+				if (diapedido == 30)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/02/2023" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/02/2023" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/02/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/02/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+
+					dataentrega = diapedido + 5; // entrega dia 31
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/02/2023" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/01/2023" << endl;
+					break;
+				}
+			case 2:
+				if (diapedido == 28)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/02/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/02/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/02/2023" << endl;
+					break;
+				}
+				if (diapedido == 25)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/02/2023" << endl;
+					break;
+				}
+				if (diapedido == 24)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/02/2023" << endl;
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/01/2023" << endl;
+					break;
+				}
+			case 3:
+				if (diapedido == 31)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/04/2023" << endl;
+					break;
+				}
+				if (diapedido == 30)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/04/2023" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/04/2023" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/04/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/04/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+
+					dataentrega = diapedido + 5; // entrega dia 31
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/04/2023" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/03/2023" << endl;
+					break;
+				}
+			case 4: // mes 4
+				if (diapedido == 30)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/05/2023" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/05/2023" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/05/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/05/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/05/2023" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/04/2023" << endl;
+					break;
+				}
+			case 5: // mes 5
+				if (diapedido == 31)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/06/2023" << endl;
+					break;
+				}
+				if (diapedido == 30)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/06/2023" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/06/2023" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/06/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/06/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+
+					dataentrega = diapedido + 5; // entrega dia 31
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/06/2023" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/05/2023" << endl;
+					break;
+				}
+			case 6: // mes 6
+				if (diapedido == 30)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/07/2023" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/07/2023" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/07/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/07/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/07/2023" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/06/2023" << endl;
+					break;
+				}
+			case 7: // mes 7
+				if (diapedido == 31)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/08/2023" << endl;
+					break;
+				}
+				if (diapedido == 30)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/08/2023" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/08/2023" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/08/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/08/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+
+					dataentrega = diapedido + 5; // entrega dia 31
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/08/2023" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/07/2023" << endl;
+					break;
+				}
+
+			case 8:
+				if (diapedido == 31)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/09/2023" << endl;
+					break;
+				}
+				if (diapedido == 30)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/09/2023" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/09/2023" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/09/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/09/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+
+					dataentrega = diapedido + 5; // entrega dia 31
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/09/2023" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/08/2023" << endl;
+					break;
+				}
+			case 9: // mes 9
+				if (diapedido == 30)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/10/2023" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/10/2023" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/10/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/10/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/10/2023" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/09/2023" << endl;
+					break;
+				}
+			case 10:
+				if (diapedido == 31)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/11/2023" << endl;
+					break;
+				}
+				if (diapedido == 30)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/11/2023" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/11/2023" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/11/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/11/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+
+					dataentrega = diapedido + 5; // entrega dia 31
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/11/2023" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/10/2023" << endl;
+					break;
+				}
+			case 11: // mes 11
+				if (diapedido == 30)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/12/2023" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/12/2023" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/12/2023" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/12/2023" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/12/2023" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/11/2023" << endl;
+					break;
+				}
+			case 12:
+				if (diapedido == 31)
+				{
+					diapedido = 0;
+					dataentrega = diapedido + 5; // entrega dia 5
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/01/2024" << endl;
+					break;
+				}
+				if (diapedido == 30)
+				{
+					diapedido = -1;
+					dataentrega = diapedido + 5; // entrega dia 4
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/01/2024" << endl;
+					break;
+				}
+				if (diapedido == 29)
+				{
+					diapedido = -2;
+					dataentrega = diapedido + 5; // entrega dia 3
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/01/2024" << endl;
+					break;
+				}
+				if (diapedido == 28)
+				{
+					diapedido = -3;
+					dataentrega = diapedido + 5; // entrega dia 2
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/01/2024" << endl;
+					break;
+				}
+				if (diapedido == 27)
+				{
+					diapedido = -4;
+					dataentrega = diapedido + 5; // entrega dia 1
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :0" << dataentrega << "/01/2024" << endl;
+					break;
+				}
+				if (diapedido == 26)
+				{
+
+					dataentrega = diapedido + 5; // entrega dia 31
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/01/2024" << endl;
+
+					break;
+				}
+				else
+				{
+					dataentrega = diapedido + 5;
+					cout << "-------------------------------------------------------   DATA PREVISTA DA ENTREGA :" << dataentrega << "/12/2023" << endl;
+					break;
+				}
+			}
+
+			int verpedido;
+			cout << "deseja ver o pedido realizado? digite 1 P/SIM E 2 P/ NÃO:";
+			cin >> verpedido;
+			if (verpedido == 1)
+			{
+				cout << "\n                      PEDIDO REALIZADO " << endl;
+				for (z = 1; z < 21; z++)
+				{
+					if (produtoescolhido[z] == "")
+						break;
+					cout << "Produtos: " << produtoescolhido[z] << "  R$: " << valordoprodutoescolhido[z] << "    Qtde.Pedida: " << quantidadeescolhida[z] << endl;
+				}
+				cout << "taxa de entrega R$:........................... " << taxadeentrega << endl;
+				cout << "total R$:..................................... " << valorfinalpedido[0] + taxadeentrega << endl;
+			}
+
+		} // chave menu == 3
+	} // chave for menu
+	// return 0;
+}
